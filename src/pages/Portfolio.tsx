@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PortfolioData } from "@/types/portfolio";
 import { loadPortfolioData, savePortfolioData } from "@/lib/storage";
+import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Skills } from "@/components/Skills";
@@ -58,6 +59,7 @@ export const Portfolio = ({ isEditable = false }: PortfolioProps) => {
 
   return (
     <div className="min-h-screen">
+      {!isEditable && <Navigation />}
       {isEditable && (
         <div className="fixed top-4 right-4 z-50 flex gap-2">
           <Button onClick={handleSave} size="lg" className="shadow-lg">

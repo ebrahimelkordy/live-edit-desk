@@ -5,11 +5,9 @@ const AUTH_KEY = "portfolio_auth";
 
 export const defaultPortfolioData: PortfolioData = {
   hero: {
-    title: "Welcome to My Portfolio",
-    subtitle: "Creative Developer & Designer",
-    description: "I create beautiful, functional, and user-centered digital experiences that make a difference.",
-    ctaText: "View My Work",
-    ctaLink: "#projects",
+    title: "Building bridges between design and code",
+    subtitle: "I'm a design engineer, where I craft intuitive user experiences. After hours, I build my own projects.",
+    description: "About · Selene Yu",
   },
   about: {
     title: "About Me",
