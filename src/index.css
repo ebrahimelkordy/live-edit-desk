@@ -8,52 +8,52 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Magic Portfolio inspired design - light, clean, minimal */
-    --background: 186 60% 95%;  /* Light turquoise/blue background */
-    --foreground: 220 15% 15%;  /* Dark text */
+    /* Magic Portfolio exact colors */
+    --background: 200 50% 98%;  /* Very light blue/gray */
+    --foreground: 0 0% 10%;  /* Almost black text */
 
-    --card: 0 0% 100%;  /* White cards */
-    --card-foreground: 220 15% 15%;
+    --card: 0 0% 100%;  /* Pure white cards */
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 15%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 220 15% 15%;  /* Dark for primary elements */
+    --primary: 0 0% 10%;  /* Black for primary */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 220 15% 15%;
+    --secondary: 200 30% 96%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 30% 93%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 200 20% 94%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 186 60% 55%;  /* Turquoise accent */
+    --accent: 190 95% 45%;  /* Bright turquoise */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 186 60% 55%;
+    --border: 200 20% 90%;
+    --input: 200 20% 90%;
+    --ring: 190 95% 45%;
 
-    --radius: 1rem;  /* More rounded like Magic Portfolio */
+    --radius: 1.25rem;  /* Extra rounded */
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 15% 15%;
-    --sidebar-primary: 220 15% 15%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 0 0% 10%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 186 60% 95%;
-    --sidebar-accent-foreground: 220 15% 15%;
-    --sidebar-border: 220 15% 88%;
-    --sidebar-ring: 186 60% 55%;
+    --sidebar-accent: 200 50% 98%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 200 20% 90%;
+    --sidebar-ring: 190 95% 45%;
 
-    /* Custom portfolio tokens matching Magic Portfolio */
+    /* Custom tokens */
     --nav-bg: 0 0% 100%;
-    --nav-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    --section-bg: 186 50% 97%;
-    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --nav-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    --section-bg: 200 50% 98%;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
