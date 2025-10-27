@@ -67,34 +67,20 @@ export const Gallery = ({ isEditable = false }: GalleryProps) => {
 
   return (
     <div className="min-h-screen">
-      <section className="section-container pt-32 pb-20">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">Gallery</h1>
-          <p className="text-lg text-muted-foreground mb-12">
-            A curated collection of visual work and inspiration.
-          </p>
+      <section className="section-container bg-[hsl(var(--section-bg))] pt-32 pb-20">
+        <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">Gallery</h2>
 
-          {isEditable && (
-            <Button onClick={handleAddItem} className="mb-8">
-              <Plus className="mr-2 h-4 w-4" /> Add Image
-            </Button>
-          )}
-
+        {isEditable ? (
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="gallery" isDropDisabled={!isEditable}>
+            <Droppable droppableId="gallery">
               {(provided) => (
                 <div
                   {...provided.droppableProps}
                   ref={provided.innerRef}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
                 >
                   {sortedItems.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                      isDragDisabled={!isEditable}
-                    >
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
                       {(provided) => (
                         <div
                           ref={provided.innerRef}
@@ -113,24 +99,20 @@ export const Gallery = ({ isEditable = false }: GalleryProps) => {
                             </Button>
                           )}
 
-                          <div className="rounded-2xl overflow-hidden card-elevated mb-4">
+                          <div className="card-elevated overflow-hidden mb-4">
                             <EditableImage
                               src={item.image}
                               alt={item.caption}
-                              onChange={(value) =>
-                                handleItemChange(item.id, "image", value)
-                              }
+                              onChange={(value) => handleItemChange(item.id, "image", value)}
                               className="w-full h-64 object-cover"
                               isEditable={isEditable}
                             />
                           </div>
 
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground text-center">
                             <EditableText
                               value={item.caption}
-                              onChange={(value) =>
-                                handleItemChange(item.id, "caption", value)
-                              }
+                              onChange={(value) => handleItemChange(item.id, "caption", value)}
                               isEditable={isEditable}
                             />
                           </p>
@@ -143,7 +125,26 @@ export const Gallery = ({ isEditable = false }: GalleryProps) => {
               )}
             </Droppable>
           </DragDropContext>
-        </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {sortedItems.map((item) => (
+              <div key={item.id}>
+                <div className="card-elevated overflow-hidden mb-4">
+                  <img src={item.image} alt={item.caption} className="w-full h-64 object-cover" />
+                </div>
+                <p className="text-sm text-muted-foreground text-center">{item.caption}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {isEditable && (
+          <div className="mt-8 text-center">
+            <Button onClick={handleAddItem} variant="outline">
+              <Plus className="mr-2 h-4 w-4" /> Add Image
+            </Button>
+          </div>
+        )}
       </section>
     </div>
   );

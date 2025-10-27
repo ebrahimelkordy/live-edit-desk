@@ -69,102 +69,70 @@ export const Work = ({ isEditable = false }: WorkProps) => {
 
   return (
     <div className="min-h-screen">
-      <section className="section-container pt-32 pb-20">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">Work</h1>
-          <p className="text-lg text-muted-foreground mb-12">
-            A selection of projects I've worked on.
-          </p>
+      <section className="section-container bg-[hsl(var(--section-bg))] pt-32 pb-20">
+        <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">Featured Projects</h2>
 
-          {isEditable && (
-            <Button onClick={handleAddProject} className="mb-8">
-              <Plus className="mr-2 h-4 w-4" /> Add Project
-            </Button>
-          )}
-
+        {isEditable ? (
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="projects" isDropDisabled={!isEditable}>
+            <Droppable droppableId="projects">
               {(provided) => (
                 <div
                   {...provided.droppableProps}
                   ref={provided.innerRef}
-                  className="space-y-16"
+                  className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
                 >
                   {sortedProjects.map((project, index) => (
-                    <Draggable
-                      key={project.id}
-                      draggableId={project.id}
-                      index={index}
-                      isDragDisabled={!isEditable}
-                    >
+                    <Draggable key={project.id} draggableId={project.id} index={index}>
                       {(provided) => (
-                        <article
+                        <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          id={project.id}
-                          className="group relative"
+                          className="card-elevated bg-card overflow-hidden group"
                         >
-                          {isEditable && (
-                            <Button
-                              variant="destructive"
-                              size="icon"
-                              className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
-                              onClick={() => handleDeleteProject(project.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          )}
-
-                          <div className="mb-6 rounded-2xl overflow-hidden card-elevated">
+                          <div className="relative">
+                            {isEditable && (
+                              <Button
+                                variant="destructive"
+                                size="icon"
+                                className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+                                onClick={() => handleDeleteProject(project.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            )}
                             <EditableImage
                               src={project.image}
                               alt={project.title}
-                              onChange={(value) =>
-                                handleProjectChange(project.id, "image", value)
-                              }
-                              className="w-full h-auto"
+                              onChange={(value) => handleProjectChange(project.id, "image", value)}
+                              className="w-full h-64 object-cover"
                               isEditable={isEditable}
                             />
                           </div>
-
-                          <h2 className="text-3xl font-bold mb-4">
-                            <EditableText
-                              value={project.title}
-                              onChange={(value) =>
-                                handleProjectChange(project.id, "title", value)
-                              }
-                              isEditable={isEditable}
-                            />
-                          </h2>
-
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex-shrink-0" />
-                            <div className="w-8 h-8 rounded-full bg-muted flex-shrink-0" />
+                          <div className="p-6" {...provided.dragHandleProps}>
+                            <h3 className="text-2xl font-semibold mb-3">
+                              <EditableText
+                                value={project.title}
+                                onChange={(value) => handleProjectChange(project.id, "title", value)}
+                                isEditable={isEditable}
+                              />
+                            </h3>
+                            <p className="text-muted-foreground mb-4">
+                              <EditableText
+                                value={project.description}
+                                onChange={(value) => handleProjectChange(project.id, "description", value)}
+                                multiline
+                                isEditable={isEditable}
+                              />
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {project.tags.map((tag, i) => (
+                                <span key={i} className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
                           </div>
-
-                          <p className="text-lg text-muted-foreground mb-6">
-                            <EditableText
-                              value={project.description}
-                              onChange={(value) =>
-                                handleProjectChange(project.id, "description", value)
-                              }
-                              multiline
-                              isEditable={isEditable}
-                            />
-                          </p>
-
-                          <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag, i) => (
-                              <span
-                                key={i}
-                                className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </article>
+                        </div>
                       )}
                     </Draggable>
                   ))}
@@ -173,7 +141,34 @@ export const Work = ({ isEditable = false }: WorkProps) => {
               )}
             </Droppable>
           </DragDropContext>
-        </div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {sortedProjects.map((project) => (
+              <div key={project.id} className="card-elevated bg-card overflow-hidden">
+                <img src={project.image} alt={project.title} className="w-full h-64 object-cover" />
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
+                  <p className="text-muted-foreground mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, i) => (
+                      <span key={i} className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {isEditable && (
+          <div className="mt-8 text-center">
+            <Button onClick={handleAddProject} variant="outline">
+              <Plus className="mr-2 h-4 w-4" /> Add New Project
+            </Button>
+          </div>
+        )}
       </section>
     </div>
   );

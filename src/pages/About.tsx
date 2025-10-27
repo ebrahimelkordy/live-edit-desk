@@ -21,52 +21,43 @@ export const AboutPage = ({ isEditable = false }: AboutPageProps) => {
 
   return (
     <div className="min-h-screen">
-      <section className="section-container pt-32 pb-20">
-        <div className="max-w-4xl mx-auto">
-          {/* Avatar and Title */}
-          <div className="flex items-center gap-6 mb-12">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex-shrink-0" />
-            <div>
-              <h1 className="text-4xl sm:text-5xl font-bold mb-2">
-                <EditableText
-                  value={data.about.title}
-                  onChange={(value) => handleChange("title", value)}
+      <section className="section-container bg-[hsl(var(--section-bg))] pt-32 pb-20">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">
+            <EditableText
+              value={data.about.title}
+              onChange={(value) => handleChange("title", value)}
+              isEditable={isEditable}
+            />
+          </h2>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {data.about.image && (
+              <div className="order-2 md:order-1">
+                <EditableImage
+                  src={data.about.image}
+                  alt="About"
+                  onChange={(value) => handleChange("image", value)}
+                  className="rounded-lg w-full card-elevated"
                   isEditable={isEditable}
                 />
-              </h1>
-              <p className="text-muted-foreground">Design Engineer</p>
+              </div>
+            )}
+            <div className={data.about.image ? "order-1 md:order-2" : "col-span-2"}>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                <EditableText
+                  value={data.about.description}
+                  onChange={(value) => handleChange("description", value)}
+                  multiline
+                  isEditable={isEditable}
+                />
+              </p>
             </div>
           </div>
-
-          {/* About Content */}
-          <div className="prose prose-lg max-w-none">
-            <div className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
-              <EditableText
-                value={data.about.description}
-                onChange={(value) => handleChange("description", value)}
-                multiline
-                isEditable={isEditable}
-              />
-            </div>
-          </div>
-
-          {/* Image if available */}
-          {data.about.image && (
-            <div className="mt-12 rounded-2xl overflow-hidden card-elevated">
-              <EditableImage
-                src={data.about.image}
-                alt="About"
-                onChange={(value) => handleChange("image", value)}
-                className="w-full h-auto"
-                isEditable={isEditable}
-              />
-            </div>
-          )}
 
           {/* Contact Info */}
-          <div className="mt-16 pt-16 border-t border-border">
-            <h2 className="text-2xl font-bold mb-6">Get in touch</h2>
-            <div className="grid sm:grid-cols-3 gap-6">
+          <div className="mt-16 pt-16 border-t border-border text-center">
+            <h3 className="text-2xl font-bold mb-8">Get in touch</h3>
+            <div className="grid sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
               <div>
                 <p className="text-sm text-muted-foreground mb-2">Email</p>
                 <p className="font-medium">{data.contact.email}</p>
