@@ -8,9 +8,10 @@ interface SkillsProps {
   skills: Skill[];
   onChange: (skills: Skill[]) => void;
   isEditable?: boolean;
+  title?: string;
 }
 
-export const Skills = ({ skills, onChange, isEditable = false }: SkillsProps) => {
+export const Skills = ({ skills, onChange, isEditable = false, title = "Skills & Expertise" }: SkillsProps) => {
   const handleAddSkill = () => {
     const newSkill: Skill = {
       id: Date.now().toString(),
@@ -49,7 +50,7 @@ export const Skills = ({ skills, onChange, isEditable = false }: SkillsProps) =>
 
   return (
     <section id="skills" className="section-container">
-      <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">Skills & Expertise</h2>
+      <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">{title}</h2>
       
       {isEditable ? (
         <DragDropContext onDragEnd={handleDragEnd}>

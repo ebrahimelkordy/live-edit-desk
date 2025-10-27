@@ -34,6 +34,24 @@ export interface GalleryItem {
   order: number;
 }
 
+export interface Experience {
+  id: string;
+  role: string;
+  company: string;
+  period: string;
+  description: string;
+  order: number;
+}
+
+export interface Study {
+  id: string;
+  degree: string;
+  institution: string;
+  period: string;
+  description: string;
+  order: number;
+}
+
 export interface PortfolioData {
   hero: {
     title: string;
@@ -44,6 +62,8 @@ export interface PortfolioData {
     title: string;
     description: string;
     image?: string;
+    experiences: Experience[];
+    studies: Study[];
   };
   skills: Skill[];
   projects: Project[];

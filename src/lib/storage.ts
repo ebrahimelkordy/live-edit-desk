@@ -10,8 +10,37 @@ export const defaultPortfolioData: PortfolioData = {
     description: "About · Selene Yu",
   },
   about: {
-    title: "About Me",
+    title: "Introduction",
     description: "I'm a passionate developer with years of experience creating web applications that users love. I specialize in modern web technologies and believe in building products that are both beautiful and functional.",
+    image: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=800&q=80",
+    experiences: [
+      {
+        id: "1",
+        role: "Senior Frontend Engineer",
+        company: "Acme Inc.",
+        period: "2021 — Present",
+        description: "Leading the frontend team, building design systems and high-performance web apps.",
+        order: 0,
+      },
+      {
+        id: "2",
+        role: "Frontend Engineer",
+        company: "Startup Co.",
+        period: "2019 — 2021",
+        description: "Developed core product features and collaborated closely with design.",
+        order: 1,
+      },
+    ],
+    studies: [
+      {
+        id: "1",
+        degree: "B.Sc. Computer Science",
+        institution: "Tech University",
+        period: "2015 — 2019",
+        description: "Focused on Human-Computer Interaction and web technologies.",
+        order: 0,
+      },
+    ],
   },
   skills: [
     {
