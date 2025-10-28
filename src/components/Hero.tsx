@@ -7,6 +7,7 @@ interface HeroProps {
     title: string;
     subtitle: string;
     description: string;
+    image?: string;
   };
   onChange: (field: string, value: string) => void;
   isEditable?: boolean;
@@ -16,6 +17,25 @@ export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
   return (
     <section className="min-h-[60vh] flex items-center justify-center pt-32 pb-12">
       <div className="section-container text-center max-w-3xl">
+        <div className="mb-8 flex justify-center">
+          {data.image ? (
+            <EditableImage
+              src={data.image}
+              alt="Profile"
+              onChange={(value) => onChange("image", value)}
+              className="w-32 h-32 rounded-full object-cover border-4 border-accent/20 hover-glow"
+              isEditable={isEditable}
+            />
+          ) : isEditable && (
+            <div 
+              onClick={() => onChange("image", "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80")}
+              className="w-32 h-32 rounded-full bg-muted flex items-center justify-center cursor-pointer hover:bg-muted/80 transition-colors"
+            >
+              <span className="text-sm text-muted-foreground">Add Photo</span>
+            </div>
+          )}
+        </div>
+        
         <div className="mb-6 flex items-center justify-center gap-2">
           <span className="inline-block px-3 py-1.5 rounded-full bg-accent text-white text-xs font-medium">
             <EditableText

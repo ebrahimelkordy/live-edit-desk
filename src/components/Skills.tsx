@@ -1,5 +1,6 @@
 import { Skill } from "@/types/portfolio";
 import { EditableText } from "./EditableText";
+import { EditableImageUpload } from "./EditableImageUpload";
 import { Button } from "./ui/button";
 import { Plus, GripVertical, Trash2 } from "lucide-react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
@@ -67,13 +68,20 @@ export const Skills = ({ skills, onChange, isEditable = false, title = "Skills &
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        className="card-elevated p-6 bg-card group"
+                        className="card-elevated p-6 bg-card group hover-lift"
                       >
                         <div className="flex items-start gap-2 mb-4">
                           <div {...provided.dragHandleProps} className="cursor-grab active:cursor-grabbing">
                             <GripVertical className="h-5 w-5 text-muted-foreground" />
                           </div>
                           <div className="flex-1">
+                            <EditableImageUpload
+                              value={skill.image}
+                              onChange={(value) => handleSkillChange(skill.id, "image", value)}
+                              label="Upload skill icon"
+                              isEditable={isEditable}
+                              className="w-full h-32 rounded-lg mb-3"
+                            />
                             <div className="text-4xl mb-2">
                               <EditableText
                                 value={skill.icon}
@@ -118,7 +126,10 @@ export const Skills = ({ skills, onChange, isEditable = false, title = "Skills &
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {sortedSkills.map((skill) => (
-            <div key={skill.id} className="card-elevated p-6 bg-card">
+            <div key={skill.id} className="card-elevated p-6 bg-card hover-lift">
+              {skill.image && (
+                <img src={skill.image} alt={skill.name} className="w-full h-32 object-cover rounded-lg mb-4" />
+              )}
               <div className="text-4xl mb-4">{skill.icon}</div>
               <h3 className="text-xl font-semibold mb-2">{skill.name}</h3>
               <p className="text-muted-foreground">{skill.description}</p>

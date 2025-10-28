@@ -8,6 +8,7 @@ export const defaultPortfolioData: PortfolioData = {
     title: "Building bridges between design and code",
     subtitle: "I'm a design engineer, where I craft intuitive user experiences. After hours, I build my own projects.",
     description: "About · Selene Yu",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80",
   },
   about: {
     title: "Introduction",
@@ -47,6 +48,7 @@ export const defaultPortfolioData: PortfolioData = {
       id: "1",
       name: "React & TypeScript",
       icon: "⚛️",
+      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=200&q=80",
       description: "Building modern, type-safe web applications",
       order: 0,
     },
@@ -54,6 +56,7 @@ export const defaultPortfolioData: PortfolioData = {
       id: "2",
       name: "UI/UX Design",
       icon: "🎨",
+      image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=200&q=80",
       description: "Creating beautiful and intuitive user interfaces",
       order: 1,
     },
@@ -61,6 +64,7 @@ export const defaultPortfolioData: PortfolioData = {
       id: "3",
       name: "Full Stack Development",
       icon: "🚀",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=200&q=80",
       description: "End-to-end application development",
       order: 2,
     },
@@ -105,6 +109,11 @@ export const defaultPortfolioData: PortfolioData = {
     email: "hello@example.com",
     phone: "+1 (555) 123-4567",
     location: "San Francisco, CA",
+    social: {
+      github: "https://github.com",
+      linkedin: "https://linkedin.com",
+      twitter: "https://twitter.com",
+    },
   },
 };
 

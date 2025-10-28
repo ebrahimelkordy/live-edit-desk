@@ -133,4 +133,69 @@ All colors MUST be HSL.
   .editable-hover {
     @apply transition-all duration-200 hover:ring-2 hover:ring-accent/50 hover:ring-offset-2 cursor-text;
   }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)];
+  }
+
+  .pulse {
+    @apply animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite];
+  }
+
+  /* Rain animation */
+  .rain-drop {
+    @apply absolute w-[2px] h-12 bg-gradient-to-b from-transparent via-blue-400/30 to-transparent;
+    animation: rain-fall linear infinite;
+  }
+
+  @keyframes rain-fall {
+    0% {
+      transform: translateY(-100vh);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0.3;
+    }
+  }
+
+  /* Lightning animation */
+  .lightning-flash {
+    @apply absolute top-0 w-1 h-full bg-gradient-to-b from-blue-300 via-blue-100 to-transparent;
+    animation: lightning 0.5s ease-in-out;
+    box-shadow: 0 0 20px rgba(147, 197, 253, 0.8), 0 0 40px rgba(147, 197, 253, 0.4);
+  }
+
+  @keyframes lightning {
+    0%, 10%, 20%, 100% {
+      opacity: 0;
+    }
+    5%, 15% {
+      opacity: 1;
+    }
+  }
+
+  /* Floating particles for light mode */
+  .floating-particle {
+    @apply absolute w-2 h-2 rounded-full bg-accent/10;
+    animation: float linear infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) translateX(50px) rotate(360deg);
+      opacity: 0;
+    }
+  }
 }

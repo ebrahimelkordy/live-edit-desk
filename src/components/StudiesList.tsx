@@ -1,4 +1,5 @@
 import { EditableText } from "./EditableText";
+import { EditableImageUpload } from "./EditableImageUpload";
 import { Study } from "@/types/portfolio";
 import { Button } from "./ui/button";
 import { GripVertical, Trash2, Plus } from "lucide-react";
@@ -52,7 +53,7 @@ export const StudiesList = ({ items, onChange, isEditable = false }: StudiesList
                 {sorted.map((edu, index) => (
                   <Draggable key={edu.id} draggableId={edu.id} index={index}>
                     {(dragProvided) => (
-                      <article ref={dragProvided.innerRef} {...dragProvided.draggableProps} className="card-elevated p-6 bg-card group">
+                      <article ref={dragProvided.innerRef} {...dragProvided.draggableProps} className="card-elevated p-6 bg-card group hover-lift">
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex items-center gap-2" {...dragProvided.dragHandleProps}>
                             <GripVertical className="h-5 w-5 text-muted-foreground" />
@@ -62,6 +63,13 @@ export const StudiesList = ({ items, onChange, isEditable = false }: StudiesList
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
+                        <EditableImageUpload
+                          value={edu.image}
+                          onChange={(value) => updateItem(edu.id, "image", value)}
+                          label="Upload institution logo"
+                          isEditable={isEditable}
+                          className="w-full rounded-lg mb-3"
+                        />
                         <h3 className="text-xl font-semibold mb-1">
                           <EditableText value={edu.degree} onChange={(v) => updateItem(edu.id, "degree", v)} isEditable={isEditable} />
                         </h3>
@@ -98,7 +106,10 @@ export const StudiesList = ({ items, onChange, isEditable = false }: StudiesList
   return (
     <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
       {sorted.map((edu) => (
-        <article key={edu.id} className="card-elevated p-6 bg-card">
+        <article key={edu.id} className="card-elevated p-6 bg-card hover-lift">
+          {edu.image && (
+            <img src={edu.image} alt={edu.institution} className="w-full h-32 object-cover rounded-lg mb-3" />
+          )}
           <h3 className="text-xl font-semibold mb-1">
             <EditableText value={edu.degree} onChange={(v) => updateItem(edu.id, "degree", v)} isEditable={isEditable} />
           </h3>

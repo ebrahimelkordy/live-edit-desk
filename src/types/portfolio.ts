@@ -40,6 +40,7 @@ export interface Experience {
   company: string;
   period: string;
   description: string;
+  image?: string;
   order: number;
 }
 
@@ -49,6 +50,7 @@ export interface Study {
   institution: string;
   period: string;
   description: string;
+  image?: string;
   order: number;
 }
 
@@ -57,6 +59,7 @@ export interface PortfolioData {
     title: string;
     subtitle: string;
     description: string;
+    image?: string;
   };
   about: {
     title: string;
@@ -73,5 +76,10 @@ export interface PortfolioData {
     email: string;
     phone: string;
     location: string;
+    social?: {
+      github?: string;
+      linkedin?: string;
+      twitter?: string;
+    };
   };
 }
