@@ -8,6 +8,7 @@ interface StudiesListProps {
 }
 
 export const StudiesList = ({ items, onChange, isEditable = false }: StudiesListProps) => {
+  console.log("StudiesList isEditable:", isEditable);
   const sorted = [...items].sort((a, b) => a.order - b.order);
 
   const updateItem = (id: string, field: keyof Study, value: string) => {

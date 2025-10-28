@@ -11,6 +11,7 @@ interface AboutPageProps {
 }
 
 export const AboutPage = ({ isEditable = false }: AboutPageProps) => {
+  console.log("AboutPage isEditable:", isEditable);
   const [data, setData] = useState(loadPortfolioData());
 
   const handleAboutChange = (field: string, value: string) => {

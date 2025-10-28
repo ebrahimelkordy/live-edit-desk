@@ -8,6 +8,7 @@ interface ExperienceListProps {
 }
 
 export const ExperienceList = ({ items, onChange, isEditable = false }: ExperienceListProps) => {
+  console.log("ExperienceList isEditable:", isEditable);
   const sorted = [...items].sort((a, b) => a.order - b.order);
 
   const updateItem = (id: string, field: keyof Experience, value: string) => {
