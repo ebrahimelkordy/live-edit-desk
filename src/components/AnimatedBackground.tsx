@@ -1,70 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export const AnimatedBackground = () => {
-  const [lightnings, setLightnings] = useState<{ id: number; x: number }[]>([]);
+  const rainIframeRef = useRef<HTMLIFrameElement>(null);
+  const lightIframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    // Lightning effect in dark mode
-    const interval = setInterval(() => {
-      if (document.documentElement.classList.contains("dark")) {
-        const id = Date.now();
-        const x = Math.random() * 100;
-        setLightnings((prev) => [...prev, { id, x }]);
-        
-        setTimeout(() => {
-          setLightnings((prev) => prev.filter((l) => l.id !== id));
-        }, 500);
+    const updateTheme = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      if (rainIframeRef.current) {
+        rainIframeRef.current.style.opacity = isDark ? "1" : "0";
       }
-    }, 3000 + Math.random() * 5000); // Random lightning every 3-8 seconds
+      if (lightIframeRef.current) {
+        lightIframeRef.current.style.opacity = isDark ? "0" : "1";
+      }
+    };
 
-    return () => clearInterval(interval);
+    // Initial theme check
+    updateTheme();
+
+    // Listen for theme changes
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Force dark theme on mount
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
   }, []);
 
   return (
-    <>
-      {/* Animated rain effect for dark mode */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden dark:opacity-100 opacity-0 transition-opacity duration-1000 z-0">
-        {/* Rain drops */}
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="rain-drop"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${0.5 + Math.random() * 0.5}s`,
-            }}
-          />
-        ))}
-        
-        {/* Lightning flashes */}
-        {lightnings.map((lightning) => (
-          <div
-            key={lightning.id}
-            className="lightning-flash"
-            style={{ left: `${lightning.x}%` }}
-          />
-        ))}
-        
-        {/* Storm clouds overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,20%,8%)] via-transparent to-transparent opacity-60" />
-      </div>
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {/* Rain wallpaper for dark mode */}
+      <iframe
+        ref={rainIframeRef}
+        src="/src/wallpapers/rain.html"
+        className="absolute inset-0 w-full h-full border-0 opacity-0 transition-opacity duration-1000"
+        style={{ opacity: 0 }}
+      />
 
-      {/* Floating particles for light mode */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden dark:opacity-0 opacity-100 transition-opacity duration-1000 z-0">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="floating-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${10 + Math.random() * 10}s`,
-            }}
-          />
-        ))}
-      </div>
-    </>
+      {/* Light wallpaper for light mode */}
+      <iframe
+        ref={lightIframeRef}
+        src="/src/wallpapers/light.html"
+        className="absolute inset-0 w-full h-full border-0 opacity-1 transition-opacity duration-1000"
+        style={{ opacity: 1 }}
+      />
+    </div>
   );
 };

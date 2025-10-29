@@ -1,18 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { Trash2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EditableText } from "@/components/EditableText";
 import { EditableImage } from "@/components/EditableImage";
-import { loadPortfolioData, savePortfolioData } from "@/lib/storage";
+import { loadPortfolioData, savePortfolioData, defaultPortfolioData } from "@/lib/storage";
 import type { GalleryItem } from "@/types/portfolio";
+import { SkeletonCard } from "@/components/SkeletonCard";
 
 interface GalleryProps {
   isEditable?: boolean;
 }
 
 export const Gallery = ({ isEditable = false }: GalleryProps) => {
-  const [data, setData] = useState(loadPortfolioData());
+  const [data, setData] = useState(defaultPortfolioData);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loaded = await loadPortfolioData();
+        setData(loaded);
+      } catch (error) {
+        console.error("Failed to load portfolio data:", error);
+        // Keep default data if loading fails
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleItemChange = (id: string, field: keyof GalleryItem, value: any) => {
     const updated = {
@@ -125,6 +142,8 @@ export const Gallery = ({ isEditable = false }: GalleryProps) => {
               )}
             </Droppable>
           </DragDropContext>
+        ) : isLoading ? (
+          <SkeletonCard count={6} />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {sortedItems.map((item) => (

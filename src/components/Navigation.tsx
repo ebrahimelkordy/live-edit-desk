@@ -2,14 +2,16 @@ import { Home, User, Briefcase, BookOpen, Image as ImageIcon, Moon, Sun, Lock } 
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
+import { isAuthenticated } from "@/lib/storage";
 
 export const Navigation = () => {
   const [isDark, setIsDark] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    setIsDark(isDarkMode);
+    // Set dark mode as default
+    document.documentElement.classList.add('dark');
+    setIsDark(true);
   }, []);
 
   const toggleTheme = () => {
@@ -32,11 +34,10 @@ export const Navigation = () => {
           <Link
             key={item.path}
             to={item.path}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors text-sm ${
-              location.pathname === item.path
-                ? "bg-accent/20"
-                : "hover:bg-accent/10"
-            }`}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors text-sm ${location.pathname === item.path
+              ? "bg-accent/20"
+              : "hover:bg-accent/10"
+              }`}
             aria-label={item.label || "Home"}
           >
             <item.icon className="h-4 w-4" />
@@ -53,17 +54,21 @@ export const Navigation = () => {
         >
           {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
-        <div className="w-px h-5 bg-border mx-1" />
-        <Link to="/dashboard">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full h-8 w-8"
-            aria-label="Dashboard"
-          >
-            <Lock className="h-4 w-4" />
-          </Button>
-        </Link>
+        {isAuthenticated() && (
+          <>
+            <div className="w-px h-5 bg-border mx-1" />
+            <Link to="/dashboard">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full h-8 w-8"
+                aria-label="Dashboard"
+              >
+                <Lock className="h-4 w-4" />
+              </Button>
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

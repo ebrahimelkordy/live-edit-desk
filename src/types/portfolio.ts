@@ -11,9 +11,16 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  detailedDescription?: string;
   image: string;
+  images?: string[];
+  date: string;
+  endDate?: string;
   link?: string;
+  github?: string;
+  liveDemo?: string;
   tags: string[];
+  category?: string;
   order: number;
 }
 

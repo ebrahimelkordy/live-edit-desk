@@ -1,5 +1,8 @@
-import { useState, useRef } from "react";
-import { Upload, Pencil } from "lucide-react";
+import { useState } from "react";
+import { Link, Pencil } from "lucide-react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 
 interface EditableImageProps {
   src: string;
@@ -17,23 +20,12 @@ export const EditableImage = ({
   isEditable = false,
 }: EditableImageProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [urlInput, setUrlInput] = useState(src);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        onChange(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleClick = () => {
-    if (isEditable && fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+  const handleUrlSubmit = () => {
+    onChange(urlInput);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -41,15 +33,38 @@ export const EditableImage = ({
       className={`relative ${isEditable ? 'cursor-pointer' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleClick}
     >
       <img src={src} alt={alt} className={className} />
       {isEditable && isHovered && (
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-lg transition-all">
-          <div className="text-white text-center">
-            <Upload className="h-8 w-8 mx-auto mb-2" />
-            <p className="text-sm">Click to upload</p>
-          </div>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="secondary" size="sm" className="text-black">
+                <Link className="h-4 w-4 mr-2" />
+                Change Image URL
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Enter Image URL</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <Input
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  placeholder="https://example.com/image.jpg"
+                />
+                <div className="flex gap-2">
+                  <Button onClick={handleUrlSubmit} className="flex-1">
+                    Update Image
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
       {isEditable && !isHovered && (
@@ -57,13 +72,6 @@ export const EditableImage = ({
           <Pencil className="h-4 w-4 text-white" />
         </div>
       )}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        className="hidden"
-        onChange={handleFileChange}
-      />
     </div>
   );
 };

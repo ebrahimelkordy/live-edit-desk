@@ -8,10 +8,13 @@ import { AboutPage } from "./pages/About";
 import { Work } from "./pages/Work";
 import { Blog } from "./pages/Blog";
 import { Gallery } from "./pages/Gallery";
+import { ProjectDetail } from "./pages/ProjectDetail";
+import { ProjectEdit } from "./pages/ProjectEdit";
 import { Login } from "./pages/Login";
 import { DashboardLayout } from "./components/DashboardLayout";
 import NotFound from "./pages/NotFound";
 import { Navigation } from "./components/Navigation";
+import { AnimatedBackground } from "./components/AnimatedBackground";
 
 const queryClient = new QueryClient();
 
@@ -20,25 +23,32 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}>
+        <AnimatedBackground />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<><Navigation /><Home /></>} />
           <Route path="/about" element={<><Navigation /><AboutPage /></>} />
           <Route path="/work" element={<><Navigation /><Work /></>} />
+          <Route path="/work/:id" element={<><Navigation /><ProjectDetail /></>} />
           <Route path="/blog" element={<><Navigation /><Blog /></>} />
           <Route path="/gallery" element={<><Navigation /><Gallery /></>} />
-          
+
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
-          
+
           {/* Dashboard Routes - Editable Mode */}
           <Route path="/dashboard" element={<DashboardLayout><Home isEditable /></DashboardLayout>} />
           <Route path="/dashboard/about" element={<DashboardLayout><AboutPage isEditable /></DashboardLayout>} />
           <Route path="/dashboard/work" element={<DashboardLayout><Work isEditable /></DashboardLayout>} />
+          <Route path="/dashboard/work/:id/edit" element={<DashboardLayout><ProjectEdit /></DashboardLayout>} />
+          <Route path="/dashboard/work/:id" element={<DashboardLayout><ProjectDetail isEditable /></DashboardLayout>} />
           <Route path="/dashboard/blog" element={<DashboardLayout><Blog isEditable /></DashboardLayout>} />
           <Route path="/dashboard/gallery" element={<DashboardLayout><Gallery isEditable /></DashboardLayout>} />
-          
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

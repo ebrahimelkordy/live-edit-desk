@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PortfolioData } from "@/types/portfolio";
-import { loadPortfolioData, savePortfolioData } from "@/lib/storage";
+import { loadPortfolioData, savePortfolioData, defaultPortfolioData } from "@/lib/storage";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -16,10 +16,15 @@ interface PortfolioProps {
 }
 
 export const Portfolio = ({ isEditable = false }: PortfolioProps) => {
-  const [data, setData] = useState<PortfolioData>(loadPortfolioData());
+  const [data, setData] = useState<PortfolioData>(defaultPortfolioData);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchData = async () => {
+      const loaded = await loadPortfolioData();
+      setData(loaded);
+    };
+    fetchData();
     if (isEditable) {
       const autoSave = setInterval(() => {
         savePortfolioData(data);

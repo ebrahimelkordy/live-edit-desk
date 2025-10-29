@@ -14,7 +14,7 @@ export const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (login(username, password)) {
       toast.success("Login successful!");
       navigate("/dashboard");
@@ -25,7 +25,7 @@ export const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(var(--hero-gradient-start))] to-[hsl(var(--hero-gradient-end))]">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md z-50">
         <CardHeader>
           <CardTitle className="text-2xl">Dashboard Login</CardTitle>
           <CardDescription>
@@ -60,7 +60,7 @@ export const Login = () => {
               Login
             </Button>
             <p className="text-sm text-muted-foreground text-center">
-              Default: admin / admin123
+              Enter your admin credentials
             </p>
           </form>
         </CardContent>

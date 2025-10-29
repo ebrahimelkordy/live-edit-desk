@@ -15,9 +15,9 @@ interface HeroProps {
 
 export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
   return (
-    <section className="min-h-[60vh] flex items-center justify-center pt-32 pb-12">
-      <div className="section-container text-center max-w-3xl">
-        <div className="mb-8 flex justify-center">
+    <section className="min-h-[60vh] flex items-center justify-center pt-32 pb-12   ">
+      <div className=" text-center max-w-3xl  ">
+        <div className="mb-8 flex justify-center ">
           {data.image ? (
             <EditableImage
               src={data.image}
@@ -27,28 +27,20 @@ export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
               isEditable={isEditable}
             />
           ) : isEditable && (
-            <div 
-              onClick={() => onChange("image", "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80")}
-              className="w-32 h-32 rounded-full bg-muted flex items-center justify-center cursor-pointer hover:bg-muted/80 transition-colors"
-            >
+            <div>
               <span className="text-sm text-muted-foreground">Add Photo</span>
             </div>
           )}
         </div>
-        
+
         <div className="mb-6 flex items-center justify-center gap-2">
-          <span className="inline-block px-3 py-1.5 rounded-full bg-accent text-white text-xs font-medium">
-            <EditableText
-              value="Once UI"
-              onChange={() => {}}
-              isEditable={isEditable}
-            />
-          </span>
+
+
           <span className="inline-block px-3 py-1.5 rounded-full bg-accent/20 text-accent text-xs font-medium">
             Featured work
           </span>
         </div>
-        
+
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
           <EditableText
             value={data.title}
@@ -57,7 +49,7 @@ export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
             className="inline-block"
           />
         </h1>
-        
+
         <p className="text-base sm:text-lg mb-8 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           <EditableText
             value={data.subtitle}
@@ -66,7 +58,7 @@ export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
             isEditable={isEditable}
           />
         </p>
-        
+
         <div className="flex items-center justify-center gap-3 mt-6">
           <div className="h-10 w-10 rounded-full bg-gradient-to-br from-accent to-accent/60" />
           <p className="text-sm text-muted-foreground">

@@ -8,6 +8,7 @@ interface EditableTextProps {
   multiline?: boolean;
   placeholder?: string;
   isEditable?: boolean;
+  isLink?: boolean;
 }
 
 export const EditableText = ({
@@ -87,10 +88,10 @@ export const EditableText = ({
   return (
     <span
       onClick={() => setIsEditing(true)}
-      className={`${className} editable-hover relative group cursor-text inline-block`}
+      className={`${className} editable-hover relative group cursor-text inline-block bg-secondary/50 px-2 py-1 rounded border border-transparent hover:border-border transition-colors`}
     >
       {value || placeholder}
-      <Pencil className="inline-block ml-2 h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+      <Pencil className="inline-block ml-2 h-3 w-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
     </span>
   );
 };

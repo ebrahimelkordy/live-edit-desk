@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>عاصفة رملية واقعية - حركة غبار حية</title>
+    <style>
+        /* 🟠 إعداد صفحة العرض */
+        body {
+            margin: 0;
+            /* إلغاء الهوامش الافتراضية */
+            overflow: hidden;
+            /* منع التمرير */
+            height: 100vh;
+            /* ارتفاع الصفحة بالكامل */
+            background: linear-gradient(to top, #d2b48c 0%, #e8d9a7 100%);
+            /* تدرج لوني صحراوي */
+            position: relative;
+        }
+
+        /* ⚡ طبقة الوميض الذهبي الخفيف */
+        .flash {
+            position: absolute;
+            inset: 0;
+            /* تملأ الشاشة كلها */
+            background: radial-gradient(circle, rgba(255, 230, 150, 0.25) 0%, transparent 70%);
+            opacity: 0;
+            pointer-events: none;
+            animation: flashAnim 15s infinite ease-in-out;
+            /* تشغيل الوميض كل 15 ثانية */
+        }
+
+        @keyframes flashAnim {
+
+            0%,
+            97%,
+            100% {
+                opacity: 0;
+            }
+
+            /* معظم الوقت مافي وميض */
+            98% {
+                opacity: 0.25;
+            }
+
+            /* لحظة الوميض الذهبي */
+            99% {
+                opacity: 0;
+            }
+        }
+
+        /* 💨 تأثير الضباب العام */
+        .fog {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(220, 200, 150, 0.12), rgba(200, 170, 100, 0.08), transparent 70%);
+            filter: blur(30px);
+            /* يجعل الضباب ناعم */
+            animation: fogMove 40s ease-in-out infinite;
+            /* تحريك الضباب ببطء */
+            mix-blend-mode: overlay;
+            /* مزج لوني لطيف فوق الخلفية */
+        }
+
+        @keyframes fogMove {
+            0% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(-80px);
+            }
+
+            /* حركة بسيطة لليمين واليسار */
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* 📜 الكانفاس الذي يُرسم عليه الغبار */
+        canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- الكانفاس هو المسرح الأساسي للرسم -->
+    <canvas id="sandstorm"></canvas>
+    <!-- ضباب ووميض فوق الكانفاس -->
+    <div class="fog"></div>
+    <div class="flash"></div>
+
+    <script>
+        /* 🏜️ إعداد الكانفاس */
+        const canvas = document.getElementById('sandstorm');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        /* 🌬️ إعداد خصائص الرياح والرمال */
+        const particles = []; // مصفوفة لحفظ كل ذرات الغبار
+        const numParticles = 2000; // عدد الذرات (كلما زاد، زادت الكثافة)
+        const baseWind = { x: 2.0, y: -0.15 }; // الاتجاه العام للرياح (يمين لأعلى قليلاً)
+        const colors = ['#d2b48c', '#c9a66b', '#b89864', '#deb887', '#c2a875', '#b89a6a']; // درجات لون الرمال - إضافة ألوان أكثر للتنوع
+
+        /* 🌪️ دالة لتوليد رياح محلية (دوامات صغيرة) */
+        function getLocalWind(x, y, t) {
+            // نحسب زاوية واتجاه الرياح في نقطة معينة بناءً على الإحداثيات والزمن
+            const angle =
+                Math.sin(y * 0.002 + t * 0.0015) * 1.4 +
+                Math.cos(x * 0.002 - t * 0.0012) * 1.4;
+            const strength = 1.3; // قوة الدوامة
+            return {
+                x: baseWind.x + Math.cos(angle) * strength * 0.5, // انحراف بسيط في الاتجاه الأفقي
+                y: baseWind.y + Math.sin(angle) * strength * 0.5  // وانحراف بسيط في الاتجاه العمودي
+            };
+        }
+
+        /* 🟤 تعريف كلاس يمثل ذرة غبار واحدة */
+        class Particle {
+            constructor() {
+                this.reset(); // إنشاء الذرة بمكان عشوائي
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;  // موقع أفقي عشوائي
+                this.y = Math.random() * canvas.height; // موقع عمودي عشوائي
+                this.size = Math.random() * 1.5 + 0.2;  // حجم الذرة
+                this.color = colors[Math.floor(Math.random() * colors.length)]; // اختيار لون عشوائي
+                this.opacity = Math.random() * 0.5 + 0.2; // الشفافية
+
+                // 🔹 معاملات للحركة العشوائية الخاصة بكل ذرة
+                this.noiseOffsetX = Math.random() * 1000;
+                this.noiseOffsetY = Math.random() * 1000;
+            }
+
+            /* 🔄 تحديث موقع الذرة في كل إطار */
+            update(t) {
+                const localWind = getLocalWind(this.x, this.y, t); // رياح محلية عند موضع الذرة
+
+                // 🌀 حركة عشوائية بسيطة (تهتز خفيفة)
+                const randomWiggleX = Math.sin(this.noiseOffsetX + t * 0.003) * 0.6;
+                const randomWiggleY = Math.cos(this.noiseOffsetY + t * 0.003) * 0.6;
+
+                // 👇 الحركة النهائية = الرياح العامة + الدوامة + العشوائية
+                this.x += localWind.x + randomWiggleX;
+                this.y += localWind.y + randomWiggleY;
+
+                // 📍 إعادة التموضع إذا خرجت من الشاشة
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = Math.random() * canvas.height * 0.3;
+            }
+
+            /* ✏️ رسم الذرة */
+            draw() {
+                ctx.beginPath();
+                ctx.fillStyle = `rgba(${hexToRgb(this.color)}, ${this.opacity})`;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        /* 🎨 دالة مساعدة لتحويل اللون من hex إلى rgb */
+        function hexToRgb(hex) {
+            const bigint = parseInt(hex.slice(1), 16);
+            const r = (bigint >> 16) & 255;
+            const g = (bigint >> 8) & 255;
+            const b = bigint & 255;
+            return `${r},${g},${b}`;
+        }
+
+        /* 🌾 إنشاء الذرات */
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        /* 🕒 المتغير الزمني لتحريك الأنيميشن */
+        let time = 0;
+
+        /* ⚡ دالة التحريك الأساسية */
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // مسح الكانفاس
+
+            // 🌤️ رسم تدرج خفيف (طبقة إضاءة في الأعلى)
+            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            grad.addColorStop(0, 'rgba(210,180,140,0.05)');
+            grad.addColorStop(1, 'rgba(240,220,170,0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 🔁 تحديث ورسم كل ذرة
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(time);
+                particles[i].draw();
+            }
+
+            time += 16; // زيادة الوقت تدريجيًا
+            requestAnimationFrame(animate); // تكرار الأنيميشن
+        }
+
+        animate(); // تشغيل الأنيميشن
+
+        /* 🪟 تحديث المقاسات عند تغيير حجم الشاشة */
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+
+</html>

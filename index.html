@@ -1,24 +1,70 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio - Creative Developer & Designer</title>
-    <meta name="description" content="A beautiful portfolio showcasing creative development and design work. Explore projects, skills, and get in touch." />
-    <meta name="author" content="Portfolio Owner" />
+<html lang="en" class="dark" style="background-color: hsl(220 25% 6%); color: hsl(210 30% 95%);">
 
-    <meta property="og:title" content="My Portfolio - Creative Developer & Designer" />
-    <meta property="og:description" content="A beautiful portfolio showcasing creative development and design work. Explore projects, skills, and get in touch." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio - Creative Developer & Designer</title>
+  <meta name="description"
+    content="A beautiful portfolio showcasing creative development and design work. Explore projects, skills, and get in touch." />
+  <meta name="author" content="Portfolio Owner" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+  <meta property="og:title" content="My Portfolio - Creative Developer & Designer" />
+  <meta property="og:description"
+    content="A beautiful portfolio showcasing creative development and design work. Explore projects, skills, and get in touch." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@lovable_dev" />
+  <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+  <style>
+    :root {
+      --background: 220 25% 6%;
+      --foreground: 210 30% 95%;
+      --card: 220 20% 10%;
+      --card-foreground: 210 30% 95%;
+      --popover: 220 20% 10%;
+      --popover-foreground: 210 30% 95%;
+      --primary: 210 30% 95%;
+      --primary-foreground: 220 25% 6%;
+      --secondary: 220 20% 10%;
+      --secondary-foreground: 210 30% 95%;
+      --muted: 220 20% 10%;
+      --muted-foreground: 220 10% 65%;
+      --accent: 186 60% 55%;
+      --accent-foreground: 0 0% 100%;
+      --destructive: 0 63% 31%;
+      --destructive-foreground: 210 30% 95%;
+      --border: 220 15% 18%;
+      --input: 220 15% 18%;
+      --ring: 186 60% 55%;
+      --sidebar-background: 220 25% 6%;
+      --sidebar-foreground: 210 30% 95%;
+      --sidebar-primary: 186 60% 55%;
+      --sidebar-primary-foreground: 0 0% 100%;
+      --sidebar-accent: 220 20% 10%;
+      --sidebar-accent-foreground: 210 30% 95%;
+      --sidebar-border: 220 15% 18%;
+      --sidebar-ring: 186 60% 55%;
+      --nav-bg: 220 20% 8%;
+      --nav-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      --section-bg: 220 20% 8%;
+      --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

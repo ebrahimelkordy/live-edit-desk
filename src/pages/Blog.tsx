@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { Trash2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EditableText } from "@/components/EditableText";
 import { EditableImage } from "@/components/EditableImage";
-import { loadPortfolioData, savePortfolioData } from "@/lib/storage";
+import { loadPortfolioData, savePortfolioData, defaultPortfolioData } from "@/lib/storage";
 import type { BlogPost } from "@/types/portfolio";
+import Masonry from "react-masonry-css";
+import { SkeletonCard } from "@/components/SkeletonCard";
 
 interface BlogProps {
   isEditable?: boolean;
 }
 
 export const Blog = ({ isEditable = false }: BlogProps) => {
-  const [data, setData] = useState(loadPortfolioData());
+  const [data, setData] = useState(defaultPortfolioData);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loaded = await loadPortfolioData();
+        setData(loaded);
+      } catch (error) {
+        console.error("Failed to load portfolio data:", error);
+        // Keep default data if loading fails
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handlePostChange = (id: string, field: keyof BlogPost, value: any) => {
     const updated = {
@@ -79,7 +97,7 @@ export const Blog = ({ isEditable = false }: BlogProps) => {
                 <div
                   {...provided.droppableProps}
                   ref={provided.innerRef}
-                  className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
                 >
                   {sortedPosts.map((post, index) => (
                     <Draggable key={post.id} draggableId={post.id} index={index}>
@@ -151,12 +169,23 @@ export const Blog = ({ isEditable = false }: BlogProps) => {
               )}
             </Droppable>
           </DragDropContext>
+        ) : isLoading ? (
+          <SkeletonCard count={6} />
         ) : (
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <Masonry
+            breakpointCols={{
+              default: 3,
+              1024: 3,
+              768: 2,
+              640: 1
+            }}
+            className="flex -ml-8 w-auto max-w-7xl mx-auto"
+            columnClassName="pl-8 bg-clip-padding"
+          >
             {sortedPosts.map((post) => (
-              <div key={post.id} className="card-elevated bg-card overflow-hidden">
+              <div key={post.id} className="card-elevated bg-card overflow-hidden mb-8">
                 {post.image && (
-                  <img src={post.image} alt={post.title} className="w-full h-64 object-cover" />
+                  <img src={post.image} alt={post.title} className="w-full object-cover" />
                 )}
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-4">
@@ -171,7 +200,7 @@ export const Blog = ({ isEditable = false }: BlogProps) => {
                 </div>
               </div>
             ))}
-          </div>
+          </Masonry>
         )}
 
         {isEditable && (

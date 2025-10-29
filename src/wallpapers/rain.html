@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خلفية مطر وبرق واقعية</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            /* خلفية ليلية داكنة بالدرجات الزرقاء الغامقة */
+            background: radial-gradient(ellipse at bottom, #070b13 0%, #000 100%);
+            overflow: hidden;
+        }
+
+        /* الكانفاس اللي بيرسم المطر والبرق */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* عنصر الوميض (الفلاش) اللي بيظهر لحظات وقت البرق */
+        .flash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            /* لون الفلاش */
+            opacity: 0;
+            /* شفاف افتراضياً */
+            transition: opacity 0.2s ease;
+            /* تدرج ناعم في الشفافية */
+            pointer-events: none;
+            /* علشان ما يمنعش التفاعل مع الصفحة */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- الكانفاس الأول للمطر -->
+    <canvas id="rain"></canvas>
+    <!-- الكانفاس الثاني للبرق -->
+    <canvas id="lightningCanvas"></canvas>
+    <!-- طبقة الفلاش (وميض البرق) -->
+    <div class="flash" id="flash"></div>
+
+    <script>
+        /* ---------------- إعداد الكائنات الأساسية ---------------- */
+        const rainCanvas = document.getElementById('rain');
+        const lightningCanvas = document.getElementById('lightningCanvas');
+        const flash = document.getElementById('flash');
+
+        const rainCtx = rainCanvas.getContext('2d');
+        const lightningCtx = lightningCanvas.getContext('2d');
+
+        /* جعل الكانفاس بنفس حجم الشاشة */
+        rainCanvas.width = lightningCanvas.width = window.innerWidth;
+        rainCanvas.height = lightningCanvas.height = window.innerHeight;
+
+        /* ---------------- المطر ---------------- */
+
+        // مصفوفة تحتوي على كل قطرة مطر
+        const raindrops = [];
+
+        // عدد القطرات — يمكنك تقليل الرقم لتخفيف المطر أو زيادته لتكثيفه
+        for (let i = 0; i < 200; i++) {
+            raindrops.push({
+                x: Math.random() * rainCanvas.width,   // مكان القطرة أفقياً
+                y: Math.random() * rainCanvas.height,  // مكان القطرة رأسياً
+                length: Math.random() * 15 + 5,        // طول القطرة (من 5 إلى 20px) - متنوع للواقعية
+                speed: Math.random() * 10 + 6,         // سرعة سقوطها (من 6 إلى 16) - متنوعة
+                thickness: Math.random() * 1.2 + 0.3,  // سمك القطرة (من 0.3 إلى 1.5) - أرق للواقعية
+                windDrift: Math.random() * 0.5 - 0.25  // انحراف بسبب الرياح (من -0.25 إلى 0.25)
+            });
+        }
+
+        // دالة رسم المطر كل فريم
+        function drawRain() {
+            rainCtx.clearRect(0, 0, rainCanvas.width, rainCanvas.height); // مسح المطر القديم
+
+            // رسم كل قطرة على حدة
+            for (const drop of raindrops) {
+                // تنويع لون المطر للواقعية (قطرات مختلفة الألوان قليلاً)
+                const alpha = 0.4 + Math.random() * 0.3; // شفافية متغيرة
+                rainCtx.strokeStyle = `rgba(174,194,224,${alpha})`;
+                rainCtx.lineWidth = drop.thickness; // سمك متغير لكل قطرة
+                rainCtx.lineCap = 'round';
+
+                rainCtx.beginPath();
+                rainCtx.moveTo(drop.x, drop.y);
+                rainCtx.lineTo(drop.x, drop.y + drop.length);
+                rainCtx.stroke();
+
+                // تحديث موقع القطرة (تنزل لتحت مع انحراف الرياح)
+                drop.y += drop.speed;
+                drop.x += drop.windDrift; // انحراف أفقي بسبب الرياح
+
+                // لما توصل القاع، نرجعها لأعلى الشاشة
+                if (drop.y > rainCanvas.height) {
+                    drop.y = -20;
+                    drop.x = Math.random() * rainCanvas.width;
+                }
+
+                // إعادة التموضع إذا خرجت من الجانبين
+                if (drop.x < 0) drop.x = rainCanvas.width;
+                if (drop.x > rainCanvas.width) drop.x = 0;
+            }
+        }
+
+        /* ---------------- البرق ---------------- */
+
+        // دالة لرسم فرع واحد من البرق
+        function drawLightning(x, y, branch = 0, maxBranches = 7) {
+            if (branch > maxBranches) return; // لما نوصل عدد الفروع المحدود نوقف
+
+            // طول الخط — يمكنك زيادته لبرق أطول
+            const length = Math.random() * 150 + 80; // بين 80 و230px
+
+            // زاوية الميل — لو عايز البرق ينزل عمودي زوّد التقسيم في المقام
+            const angle = (Math.random() - 0.5) * Math.PI / 2.5;
+
+            // نقطة النهاية بناءً على الطول والزاوية
+            const xEnd = x + Math.sin(angle) * length;
+            const yEnd = y + Math.cos(angle) * length;
+
+            // إعدادات الشكل واللون والتوهج
+            lightningCtx.beginPath();
+            lightningCtx.moveTo(x, y);
+            lightningCtx.lineTo(xEnd, yEnd);
+            lightningCtx.strokeStyle = `rgba(255, 255, ${180 + Math.random() * 75}, 0.9)`; // لون البرق (أبيض مزرق)
+            lightningCtx.lineWidth = 2 + Math.random() * 3; // عرض الخط (بين 2 و5)
+            lightningCtx.shadowBlur = 10;                   // التوهج حول البرق
+            lightningCtx.shadowColor = '#aef';              // لون التوهج
+            lightningCtx.stroke();
+
+            // نسبة تشعب البرق — كلما زادت القيمة كلما كان متفرع أكتر
+            if (Math.random() < 0.7) drawLightning(xEnd, yEnd, branch + 1, maxBranches);
+        }
+
+        // دالة توليد البرق الكامل
+        function createLightning() {
+            const bolts = Math.floor(Math.random() * 2) + 1; // عدد الصواعق في نفس اللحظة (1-2)
+            lightningCtx.clearRect(0, 0, lightningCanvas.width, lightningCanvas.height);
+
+            // رسم أكثر من صاعقة في نفس اللحظة
+            for (let i = 0; i < bolts; i++) {
+                const startX = Math.random() * lightningCanvas.width; // مكان الصاعقة أفقياً
+                for (let j = 0; j < 2 + Math.random() * 3; j++) {     // عدد الفروع في كل صاعقة
+                    drawLightning(startX + Math.random() * 30 - 15, 0, 0, 6 + Math.random() * 3);
+                }
+            }
+
+            // تفعيل وميض خفيف وقت البرق
+            flash.style.opacity = 0.3 + Math.random() * 0.5;
+            setTimeout(() => flash.style.opacity = 0, 200);
+
+            // مسح خطوط البرق بعد وقت قصير
+            setTimeout(() => lightningCtx.clearRect(0, 0, lightningCanvas.width, lightningCanvas.height), 250);
+        }
+
+        // دالة تشغيل البرق عشوائياً
+        function randomLightning() {
+            // احتمال حدوث برق في كل مرة (كلما زادت القيمة زادت الكثافة)
+            if (Math.random() < 0.15) createLightning();
+            // تكرار الاستدعاء كل فترة (كلما قل الوقت زادت سرعة البرق)
+            setTimeout(randomLightning, 300 + Math.random() * 1200);
+        }
+
+        /* ---------------- تشغيل الرسوميات ---------------- */
+
+        // تشغيل المطر في حلقة مستمرة
+        function animate() {
+            drawRain();
+            requestAnimationFrame(animate);
+        }
+
+        animate();        // بدء المطر
+        randomLightning(); // بدء البرق
+
+        /* ---------------- تعديل الحجم ---------------- */
+
+        // تحديث الكانفاس عند تغيير حجم الشاشة
+        window.addEventListener('resize', () => {
+            rainCanvas.width = lightningCanvas.width = window.innerWidth;
+            rainCanvas.height = lightningCanvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+
+</html>
