@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import serverless from "serverless-http";
 dotenv.config();
 
 const app = express();
@@ -107,6 +108,4 @@ app.get("/api/health", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`API server running on http://localhost:${PORT}`);
-});
+export default serverless(app);
