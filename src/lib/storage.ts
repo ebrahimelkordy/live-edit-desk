@@ -50,7 +50,8 @@ export const defaultPortfolioData: PortfolioData = {
 
 export const loadPortfolioData = async (): Promise<PortfolioData> => {
   try {
-    const res = await fetch("/api/portfolio");
+    const apiUrl = import.meta.env.VITE_API_URL || "https://live-edit-desk.vercel.app";
+    const res = await fetch(`${apiUrl}/api/portfolio`);
     if (res.ok) {
       const data = await res.json();
       if (data && Object.keys(data).length > 0) {
@@ -67,7 +68,8 @@ export const loadPortfolioData = async (): Promise<PortfolioData> => {
 
 export const savePortfolioData = async (data: PortfolioData): Promise<void> => {
   try {
-    const res = await fetch("/api/portfolio", {
+    const apiUrl = import.meta.env.VITE_API_URL || "https://live-edit-desk.vercel.app";
+    const res = await fetch(`${apiUrl}/api/portfolio`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
