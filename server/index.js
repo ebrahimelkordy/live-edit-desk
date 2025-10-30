@@ -108,4 +108,4 @@ app.get("/api/health", async (req, res) => {
   }
 });
 
-module.exports = serverless(app);
+export default serverless(app);
