@@ -8,108 +8,108 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Magic Portfolio exact colors - Light theme matching sandstorm wallpaper */
-    --background: 45 25% 95%;  /* Warm light background to match sandstorm */
-    --foreground: 0 0% 15%;  /* Slightly darker text for contrast */
+    /* Magic Portfolio exact colors - Light theme with metallic elements */
+    --background: 0 0% 98%;  /* True light background */
+    --foreground: 220  15% 15%;  /* Dark gray text for contrast */
 
     --card: 0 0% 100%;  /* Pure white cards */
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 220 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 0 0% 15%;  /* Darker primary */
+    --primary: 220  15% 15%;  /* Dark gray primary */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 20% 92%;
-    --secondary-foreground: 0 0% 15%;
+    --secondary: 220  10% 90%;
+    --secondary-foreground: 220 15% 15%;
 
-    --muted: 45 15% 88%;
-    --muted-foreground: 0 0% 50%;
+    --muted: 220  8% 85%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 45 85% 55%;  /* Warm golden accent */
+    --accent: 220  70% 50%;  /* Blue accent */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 45 15% 85%;
-    --input: 45 15% 85%;
-    --ring: 45 85% 55%;
+    --border: 220  8% 80%;
+    --input: 220  8% 80%;
+    --ring: 220  70% 50%;
 
     --radius: 1.25rem;  /* Extra rounded */
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 15%;
-    --sidebar-primary: 0 0% 15%;
+    --sidebar-foreground: 220 15% 15%;
+    --sidebar-primary: 220 15% 15%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 45 25% 95%;
-    --sidebar-accent-foreground: 0 0% 15%;
-    --sidebar-border: 45 15% 85%;
-    --sidebar-ring: 45 85% 55%;
+    --sidebar-accent: 220 10% 90%;
+    --sidebar-accent-foreground: 220 15% 15%;
+    --sidebar-border: 220 8% 80%;
+    --sidebar-ring: 220 70% 50%;
 
     /* Custom tokens */
     --nav-bg: 0 0% 100%;
     --nav-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    --section-bg: 45 25% 95%;
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --section-bg: 0 0% 98%;
+    --card-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.1);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 220 25% 6%;  /* Darker background to match rain wallpaper */
-    --foreground: 210 30% 95%;
+    --background: 220 30% 3%;  /* Much darker background for metallic contrast */
+    --foreground: 210 25% 95%;
 
-    --card: 220 20% 10%;
-    --card-foreground: 210 30% 95%;
+    --card: 220 35% 5%;
+    --card-foreground: 210 25% 90%;
 
-    --popover: 220 20% 10%;
-    --popover-foreground: 210 30% 95%;
+    --popover: 220 35% 5%;
+    --popover-foreground: 210 25% 90%;
 
-    --primary: 210 30% 95%;
-    --primary-foreground: 220 25% 6%;
+    --primary: 210 25% 95%;
+    --primary-foreground: 220 30% 3%;
 
-    --secondary: 220 20% 10%;
-    --secondary-foreground: 210 30% 95%;
+    --secondary: 220 30% 8%;
+    --secondary-foreground: 210 25% 90%;
 
-    --muted: 220 20% 10%;
-    --muted-foreground: 220 10% 65%;
+    --muted: 220 25% 12%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 186 60% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 200 70% 65%;  /* Brighter metallic accent */
+    --accent-foreground: 220 30% 3%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 30% 95%;
+    --destructive: 0 63% 25%;
+    --destructive-foreground: 210 25% 95%;
 
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 186 60% 55%;
+    --border: 220 20% 15%;
+    --input: 220 20% 12%;
+    --ring: 200 70% 65%;
 
-    --sidebar-background: 220 25% 6%;
-    --sidebar-foreground: 210 30% 95%;
-    --sidebar-primary: 186 60% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 20% 10%;
-    --sidebar-accent-foreground: 210 30% 95%;
-    --sidebar-border: 220 15% 18%;
-    --sidebar-ring: 186 60% 55%;
+    --sidebar-background: 220 30% 3%;
+    --sidebar-foreground: 210 25% 95%;
+    --sidebar-primary: 200 70% 65%;
+    --sidebar-primary-foreground: 220 30% 3%;
+    --sidebar-accent: 220 30% 8%;
+    --sidebar-accent-foreground: 210 25% 95%;
+    --sidebar-border: 220 20% 15%;
+    --sidebar-ring: 200 70% 65%;
 
-    --nav-bg: 220 20% 8%;
-    --nav-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    --section-bg: 220 20% 8%;
-    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --nav-bg: 220 30% 6%;
+    --nav-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    --section-bg: 220 30% 4%;
+    --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    --card-shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.5);
 
     /* Metallic dark theme colors */
-    --metallic-primary: 210 25% 85%;
-    --metallic-secondary: 220 15% 25%;
-    --metallic-accent: 186 40% 65%;
-    --metallic-border: 220 10% 35%;
+    --metallic-primary: 200 35% 85%;
+    --metallic-secondary: 220 25% 15%;
+    --metallic-accent: 200 70% 65%;
+    --metallic-border: 220 20% 25%;
 
     /* Hero gradient colors */
-    --hero-gradient-start: 45 85% 55%;
-    --hero-gradient-end: 186 60% 55%;
+    --hero-gradient-start: 200 75% 60%;
+    --hero-gradient-end: 200 55% 50%;
   }
 }
 
@@ -133,15 +133,24 @@ All colors MUST be HSL.
   }
 
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-card/60 backdrop-blur-sm rounded-2xl shadow-[var(--card-shadow)] border border-border/30;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-card/80 backdrop-blur-sm rounded-2xl shadow-[var(--card-shadow)] border border-[hsl(var(--border)/.4)];
   }
 
   .section-container-uniform {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-card/60 backdrop-blur-sm rounded-2xl shadow-[var(--card-shadow)] border border-border/30;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-card/80 backdrop-blur-sm rounded-2xl shadow-[var(--card-shadow)] border border-[hsl(var(--border)/.4)];
   }
 
   .card-elevated {
-    @apply bg-card/90 backdrop-blur-sm rounded-lg shadow-[var(--card-shadow)] transition-all duration-300 hover:shadow-[var(--card-shadow-hover)] hover:-translate-y-1 border border-border/30;
+    @apply bg-gradient-to-br from-[hsl(var(--card))] to-[hsl(var(--secondary))] backdrop-blur-sm rounded-lg shadow-[var(--card-shadow)] transition-all duration-300 hover:shadow-[var(--card-shadow-hover)] hover:-translate-y-1 border border-[hsl(var(--border)/.4)] hover:from-[hsl(var(--secondary))] hover:to-[hsl(var(--card))];
+  }
+
+  /* Consistent card sizing */
+  .card-standard {
+    @apply card-elevated h-full flex flex-col;
+  }
+
+  .card-standard .card-content {
+    @apply flex-grow;
   }
 
   .editable-hover {
@@ -191,6 +200,31 @@ All colors MUST be HSL.
     5%, 15% {
       opacity: 1;
     }
+  }
+
+  /* Subtle gradient backgrounds */
+  .gradient-bg {
+    background: radial-gradient(ellipse at center, 
+      hsla(var(--accent), 0.1) 0%, 
+      hsla(var(--background), 0) 70%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .subtle-gradient {
+    background: radial-gradient(circle at top right, 
+      hsla(var(--accent), 0.05) 0%, 
+      hsla(var(--background), 0.9) 50%);
+  }
+
+  .subtle-gradient-bottom {
+    background: radial-gradient(circle at bottom left, 
+      hsla(var(--accent), 0.07) 0%, 
+      hsla(var(--background), 0.9) 50%);
   }
 
   /* Floating particles for light mode */

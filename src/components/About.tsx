@@ -13,36 +13,39 @@ interface AboutProps {
 
 export const About = ({ data, onChange, isEditable = false }: AboutProps) => {
   return (
-    <section id="about" className="section-container bg-[hsl(var(--section-bg))]">
+    <section id="about" className="section-container">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">
+        <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12 text-foreground">
           <EditableText
             value={data.title}
             onChange={(value) => onChange("title", value)}
             isEditable={isEditable}
+            className="text-foreground"
           />
         </h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {data.image && (
-            <div className="order-2 md:order-1">
+            <div className="order-2 md:order-1 flex justify-center">
               <EditableImage
                 src={data.image}
                 alt="About"
                 onChange={(value) => onChange("image", value)}
-                className="rounded-lg w-full card-elevated"
+                className="rounded-2xl w-full max-w-md object-cover border border-border/40 shadow-lg"
                 isEditable={isEditable}
               />
             </div>
           )}
           <div className={data.image ? "order-1 md:order-2" : "col-span-2"}>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              <EditableText
-                value={data.description}
-                onChange={(value) => onChange("description", value)}
-                multiline
-                isEditable={isEditable}
-              />
-            </p>
+            <div className="card-elevated p-8 rounded-2xl border border-border/40 shadow-lg">
+              <p className="text-lg text-foreground leading-relaxed">
+                <EditableText
+                  value={data.description}
+                  onChange={(value) => onChange("description", value)}
+                  multiline
+                  isEditable={isEditable}
+                />
+              </p>
+            </div>
           </div>
         </div>
       </div>

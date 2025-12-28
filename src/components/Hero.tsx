@@ -15,31 +15,24 @@ interface HeroProps {
 
 export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
   return (
-    <section className="min-h-[60vh] flex items-center justify-center pt-32 pb-12   ">
-      <div className=" text-center max-w-3xl  ">
-        <div className="mb-8 flex justify-center ">
+    <section className="min-h-[70vh] flex items-center justify-center pt-32 pb-12 relative overflow-hidden">
+      <div className=" text-center max-w-3xl relative z-10">
+        <div className="mb-8 flex justify-center">
           {data.image ? (
             <EditableImage
               src={data.image}
               alt="Profile"
               onChange={(value) => onChange("image", value)}
-              className="w-32 h-32 rounded-full object-cover border-4 border-accent/20 hover-glow"
+              className="w-36 h-36 rounded-full object-cover border-4 border-accent/30 hover-glow shadow-lg"
               isEditable={isEditable}
             />
           ) : isEditable && (
-            <div>
+            <div className="w-36 h-36 rounded-full border-2 border-dashed border-muted-foreground/50 flex items-center justify-center">
               <span className="text-sm text-muted-foreground">Add Photo</span>
             </div>
           )}
         </div>
 
-        <div className="mb-6 flex items-center justify-center gap-2">
-
-
-          <span className="inline-block px-3 py-1.5 rounded-full bg-accent/20 text-accent text-xs font-medium">
-            Featured work
-          </span>
-        </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
           <EditableText
@@ -50,7 +43,7 @@ export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
           />
         </h1>
 
-        <p className="text-base sm:text-lg mb-8 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg sm:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light">
           <EditableText
             value={data.subtitle}
             onChange={(value) => onChange("subtitle", value)}
@@ -60,8 +53,12 @@ export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
         </p>
 
         <div className="flex items-center justify-center gap-3 mt-6">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-accent to-accent/60" />
-          <p className="text-sm text-muted-foreground">
+          <div className="h-12 w-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-background flex items-center justify-center">
+              <div className="h-2 w-2 rounded-full bg-accent"></div>
+            </div>
+          </div>
+          <p className="text-base text-muted-foreground max-w-md">
             <EditableText
               value={data.description}
               onChange={(value) => onChange("description", value)}

@@ -29,7 +29,7 @@ export const EditableImageUpload = ({
 
   if (!isEditable) {
     return value ? (
-      <img src={value} alt={label} className={className} />
+      <img src={value} alt={label} className={`${className} object-contain`} />
     ) : null;
   }
 
@@ -37,7 +37,7 @@ export const EditableImageUpload = ({
     <div className={`relative group ${className}`}>
       {value ? (
         <>
-          <img src={value} alt={label} className="w-full h-full object-cover" />
+          <img src={value} alt={label} className="w-full h-full object-contain" />
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all gap-2">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>

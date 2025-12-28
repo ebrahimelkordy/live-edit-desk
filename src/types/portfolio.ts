@@ -62,6 +62,7 @@ export interface Study {
 }
 
 export interface PortfolioData {
+  logo?: string; // Add logo field to the main portfolio data
   hero: {
     title: string;
     subtitle: string;

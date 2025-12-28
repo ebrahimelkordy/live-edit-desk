@@ -203,9 +203,9 @@ export const Home = ({ isEditable = false }: HomeProps) => {
 
         <Contact data={data.contact} onChange={handleContactChange} isEditable={isEditable} />
 
-        <footer className="bg-primary text-primary-foreground py-12">
-          <div className="section-container text-center">
-            <p className="text-lg">&copy; 2025 My Portfolio. All rights reserved.</p>
+        <footer className="bg-card text-foreground py-12 border-t border-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-lg">&copy; 2025 ebrahim kordy Portfolio. All rights reserved.</p>
           </div>
         </footer>
       </div>

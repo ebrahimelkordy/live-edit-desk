@@ -68,7 +68,7 @@ export const Skills = ({ skills, onChange, isEditable = false, title = "Skills &
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        className="card-elevated p-6 bg-card group hover-lift"
+                        className="card-standard p-6 group hover-lift"
                       >
                         <div className="flex items-start gap-2 mb-4">
                           <div {...provided.dragHandleProps} className="cursor-grab active:cursor-grabbing">
@@ -126,9 +126,9 @@ export const Skills = ({ skills, onChange, isEditable = false, title = "Skills &
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {sortedSkills.map((skill) => (
-            <div key={skill.id} className="card-elevated p-6 bg-card hover-lift">
+            <div key={skill.id} className="card-standard p-6 hover-lift">
               {skill.image && (
-                <img src={skill.image} alt={skill.name} className="w-full h-32 object-cover rounded-lg mb-4" />
+                <img src={skill.image} alt={skill.name} className="w-full h-32 object-contain rounded-lg mb-4" />
               )}
               <div className="text-4xl mb-4">{skill.icon}</div>
               <h3 className="text-xl font-semibold mb-2">{skill.name}</h3>

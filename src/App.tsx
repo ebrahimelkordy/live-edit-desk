@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { AboutPage } from "./pages/About";
 import { Work } from "./pages/Work";
@@ -18,41 +18,144 @@ import { AnimatedBackground } from "./components/AnimatedBackground";
 
 const queryClient = new QueryClient();
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <>
+        <AnimatedBackground />
+        <Navigation />
+        <Home />
+      </>
+    ),
+  },
+  {
+    path: "/about",
+    element: (
+      <>
+        <AnimatedBackground />
+        <Navigation />
+        <AboutPage />
+      </>
+    ),
+  },
+  {
+    path: "/work",
+    element: (
+      <>
+        <AnimatedBackground />
+        <Navigation />
+        <Work />
+      </>
+    ),
+  },
+  {
+    path: "/work/:id",
+    element: (
+      <>
+        <AnimatedBackground />
+        <Navigation />
+        <ProjectDetail />
+      </>
+    ),
+  },
+  {
+    path: "/blog",
+    element: (
+      <>
+        <AnimatedBackground />
+        <Navigation />
+        <Blog />
+      </>
+    ),
+  },
+  {
+    path: "/gallery",
+    element: (
+      <>
+        <AnimatedBackground />
+        <Navigation />
+        <Gallery />
+      </>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <>
+        <AnimatedBackground />
+        <Login />
+      </>
+    ),
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <DashboardLayout>
+        <Home isEditable />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/dashboard/about",
+    element: (
+      <DashboardLayout>
+        <AboutPage isEditable />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/dashboard/work",
+    element: (
+      <DashboardLayout>
+        <Work isEditable />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/dashboard/work/:id/edit",
+    element: (
+      <DashboardLayout>
+        <ProjectEdit />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/dashboard/work/:id",
+    element: (
+      <DashboardLayout>
+        <ProjectDetail isEditable />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/dashboard/blog",
+    element: (
+      <DashboardLayout>
+        <Blog isEditable />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/dashboard/gallery",
+    element: (
+      <DashboardLayout>
+        <Gallery isEditable />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+], { basename: import.meta.env.MODE === 'development' ? "/live-edit-desk/" : "/" });
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}>
-        <AnimatedBackground />
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<><Navigation /><Home /></>} />
-          <Route path="/about" element={<><Navigation /><AboutPage /></>} />
-          <Route path="/work" element={<><Navigation /><Work /></>} />
-          <Route path="/work/:id" element={<><Navigation /><ProjectDetail /></>} />
-          <Route path="/blog" element={<><Navigation /><Blog /></>} />
-          <Route path="/gallery" element={<><Navigation /><Gallery /></>} />
-
-          {/* Auth Routes */}
-          <Route path="/login" element={<Login />} />
-
-          {/* Dashboard Routes - Editable Mode */}
-          <Route path="/dashboard" element={<DashboardLayout><Home isEditable /></DashboardLayout>} />
-          <Route path="/dashboard/about" element={<DashboardLayout><AboutPage isEditable /></DashboardLayout>} />
-          <Route path="/dashboard/work" element={<DashboardLayout><Work isEditable /></DashboardLayout>} />
-          <Route path="/dashboard/work/:id/edit" element={<DashboardLayout><ProjectEdit /></DashboardLayout>} />
-          <Route path="/dashboard/work/:id" element={<DashboardLayout><ProjectDetail isEditable /></DashboardLayout>} />
-          <Route path="/dashboard/blog" element={<DashboardLayout><Blog isEditable /></DashboardLayout>} />
-          <Route path="/dashboard/gallery" element={<DashboardLayout><Gallery isEditable /></DashboardLayout>} />
-
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </TooltipProvider>
   </QueryClientProvider>
 );

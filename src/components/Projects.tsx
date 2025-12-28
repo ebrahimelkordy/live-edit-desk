@@ -88,7 +88,7 @@ export const Projects = ({ projects, onChange, isEditable = false, isLoading = f
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        className="card-elevated bg-card overflow-hidden group"
+                        className="card-standard overflow-hidden group"
                       >
                         <div className="flex items-center gap-2 p-4 border-b">
                           <div {...provided.dragHandleProps} className="cursor-grab active:cursor-grabbing">
@@ -286,7 +286,7 @@ export const Projects = ({ projects, onChange, isEditable = false, isLoading = f
           columnClassName="pl-8 bg-clip-padding"
         >
           {sortedProjects.map((project) => (
-            <div key={project.id} className="card-elevated bg-card overflow-hidden mb-8 cursor-pointer" onClick={() => navigate(`/work/${project.id}`)}>
+            <div key={project.id} className="card-standard overflow-hidden mb-8 cursor-pointer" onClick={() => navigate(`/work/${project.id}`)}>
               <img src={project.image} alt={project.title} className="w-full object-cover" />
               <div className="p-6">
                 {project.category && (

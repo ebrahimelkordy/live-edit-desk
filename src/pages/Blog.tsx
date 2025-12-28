@@ -132,7 +132,7 @@ export const Blog = ({ isEditable = false }: BlogProps) => {
                             <div className="flex items-center gap-3 mb-4">
                               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent/60 flex-shrink-0" />
                               <div>
-                                <p className="text-sm font-medium">Selene Yu</p>
+                                <p className="text-sm font-medium">Kordy</p>
                                 <p className="text-xs text-muted-foreground">
                                   <EditableText
                                     value={post.date}
