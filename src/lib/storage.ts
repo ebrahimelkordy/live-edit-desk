@@ -59,15 +59,15 @@ export const defaultPortfolioData: PortfolioData = {
   ],
   blog: [],
   gallery: [],
-  contact: {
-    email: "contact@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
-    social: {
-      github: "https://github.com/example",
-      linkedin: "https://linkedin.com/in/example",
-      twitter: "https://twitter.com/example",
-    },
+ "contact": {
+    "email": "ebrahimkordy0@gmail.com",
+    "phone": "+20 01060899732",
+    "location": "Egypt, Cairo",
+    "social": {
+      "github": "https://github.com/ebrahimelkordy",
+      "linkedin": "https://www.linkedin.com/in/ebrahim-elkordy-3a104b214/",
+      "twitter": "https://x.com/ebrahimkordy"
+    }
   },
 };
 

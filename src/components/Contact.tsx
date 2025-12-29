@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 interface ContactProps {
   data: {
@@ -23,15 +24,43 @@ interface ContactProps {
 
 export const Contact = ({ data, onChange, isEditable = false }: ContactProps) => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSending, setIsSending] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    setIsSending(true);
+
+    try {
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
+
+      await emailjs.send(
+        'service_o76diny',
+        'template_j3y20fg',
+        templateParams,
+        'ai-ngqzgQwSDwI12b'
+      );
+
+      toast({
+        title: "Message sent!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -165,9 +194,9 @@ export const Contact = ({ data, onChange, isEditable = false }: ContactProps) =>
                 className="hover:border-accent transition-colors resize-none"
               />
             </div>
-            <Button type="submit" className="w-full hover-lift group">
-              <Send className="mr-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              Send Message
+            <Button type="submit" className="w-full hover-lift group" disabled={isSending}>
+              <Send className={`mr-2 h-4 w-4 transition-transform ${isSending ? 'animate-pulse' : 'group-hover:translate-x-1'}`} />
+              {isSending ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </div>
