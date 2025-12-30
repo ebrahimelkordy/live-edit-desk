@@ -8,6 +8,7 @@ import { loadPortfolioData, savePortfolioData, defaultPortfolioData } from "@/li
 import type { BlogPost } from "@/types/portfolio";
 import Masonry from "react-masonry-css";
 import { SkeletonCard } from "@/components/SkeletonCard";
+import img from "../wallpapers/WhatsApp Image 2025-12-30 at 1.14.30 PMWhatsApp.jpeg"
 
 interface BlogProps {
   isEditable?: boolean;
@@ -132,7 +133,7 @@ export const Blog = ({ isEditable = false }: BlogProps) => {
                             <div className="flex items-center gap-3 mb-4">
                               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent/60 flex-shrink-0" />
                               <div>
-                                <p className="text-sm font-medium">Kordy</p>
+                                <p className="text-sm font-medium">Ebrahim Hashish</p>
                                 <p className="text-xs text-muted-foreground">
                                   <EditableText
                                     value={post.date}
@@ -189,9 +190,12 @@ export const Blog = ({ isEditable = false }: BlogProps) => {
                 )}
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent/60 flex-shrink-0" />
+                    <div className="h-12 w-12 rounded-full bg-slate-800 from-accent to-primary flex items-center justify-center">
+                      <img src={img} className="h-8 w-8 rounded-full bg-background flex items-center justify-center" />
+
+                    </div>
                     <div>
-                      <p className="text-sm font-medium">kordy</p>
+                      <p className="text-sm font-medium">Ebrahim Hashish</p>
                       <p className="text-xs text-muted-foreground">{post.date}</p>
                     </div>
                   </div>

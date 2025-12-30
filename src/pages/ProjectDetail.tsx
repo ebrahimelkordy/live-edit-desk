@@ -233,14 +233,26 @@ export const ProjectDetail = ({ isEditable = false }: ProjectDetailProps) => {
             </div>
             <div className="flex justify-center gap-4">
               {project.link && (
-                <EditableText
-                  value={project.link}
-                  onChange={(value) => handleProjectChange("link", value)}
-                  isEditable={isEditable}
-                  placeholder="Project link (optional)"
-                  className="text-accent underline hover:text-accent/80"
-                  isLink={true}
-                />
+                isEditable ? (
+                  <EditableText
+                    value={project.link}
+                    onChange={(value) => handleProjectChange("link", value)}
+                    isEditable={isEditable}
+                    placeholder="Project link (optional)"
+                    className="text-accent underline hover:text-accent/80"
+                    isLink={true}
+                  />
+                ) : (
+                  <Button asChild variant="outline">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit Project
+                    </a>
+                  </Button>
+                )
               )}
               {!project.link && isEditable && (
                 <EditableText

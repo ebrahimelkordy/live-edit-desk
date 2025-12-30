@@ -2,8 +2,9 @@ import { Skill } from "@/types/portfolio";
 import { EditableText } from "./EditableText";
 import { EditableImageUpload } from "./EditableImageUpload";
 import { Button } from "./ui/button";
-import { Plus, GripVertical, Trash2 } from "lucide-react";
+import { Plus, GripVertical, Trash2, ArrowRight } from "lucide-react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+import { Link } from "react-router-dom";
 
 interface SkillsProps {
   skills: Skill[];
@@ -50,9 +51,9 @@ export const Skills = ({ skills, onChange, isEditable = false, title = "Skills &
   const sortedSkills = [...skills].sort((a, b) => a.order - b.order);
 
   return (
-    <section id="skills" className="section-container">
-      <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">{title}</h2>
-      
+    <section>
+      {title && <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12">{title}</h2>}
+
       {isEditable ? (
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="skills">

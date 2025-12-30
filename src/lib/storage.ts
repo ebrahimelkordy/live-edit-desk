@@ -6,7 +6,7 @@ const AUTH_KEY = "portfolio_auth";
 export const defaultPortfolioData: PortfolioData = {
   logo: "kordy4276",
   hero: {
-    title: "Kordy",
+    title: "abo hashish",
     subtitle: "Full-Stack Web Developer (Frontend Focused)",
     description: "Crafting beautiful, responsive web experiences with modern technologies",
     image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23000000'/%3E%3C/svg%3E",  // Black SVG placeholder

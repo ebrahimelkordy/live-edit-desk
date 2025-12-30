@@ -9,6 +9,7 @@ import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye } from "lucide-react";
+import img from "../wallpapers/WhatsApp Image 2025-12-30 at 1.14.30 PMWhatsApp.jpeg"
 
 interface HomeProps {
   isEditable?: boolean;
@@ -69,6 +70,8 @@ export const Home = ({ isEditable = false }: HomeProps) => {
     if (isEditable) savePortfolioData(updated);
   };
 
+  const sortedSkills = [...data.skills].sort((a, b) => a.order - b.order);
+
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground />
@@ -77,7 +80,20 @@ export const Home = ({ isEditable = false }: HomeProps) => {
           <Hero data={data.hero} onChange={handleHeroChange} isEditable={isEditable} />
         </div>
         <About data={data.about} onChange={handleAboutChange} isEditable={isEditable} />
-        <Skills skills={data.skills} onChange={handleSkillsChange} isEditable={isEditable} />
+
+        {/* Skills Preview Section */}
+        <section id="skills-preview" className="section-container">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-4xl sm:text-5xl font-bold">Skills & Expertise</h2>
+            <Link to="/about">
+              <Button variant="outline" className="group">
+                View All
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </div>
+          <Skills skills={sortedSkills.slice(0, 3)} onChange={handleSkillsChange} isEditable={isEditable} title="" />
+        </section>
 
         {/* Latest from Blog Section */}
         {data.blog.length > 0 && (
@@ -100,9 +116,12 @@ export const Home = ({ isEditable = false }: HomeProps) => {
                   )}
                   <div className="p-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent/60 flex-shrink-0" />
+                      <div className="h-12 w-12 rounded-full bg-slate-800 from-accent to-primary flex items-center justify-center">
+                        <img src={img} className="h-8 w-8 rounded-full bg-background flex items-center justify-center" />
+
+                      </div>
                       <div>
-                        <p className="text-sm font-medium">Author</p>
+                        <p className="text-sm font-medium">Ebrahim Hashish</p>
                         <p className="text-xs text-muted-foreground">{post.date}</p>
                       </div>
                     </div>
@@ -190,10 +209,21 @@ export const Home = ({ isEditable = false }: HomeProps) => {
                         </span>
                       )}
                     </div>
-                    <Link to="/work" className="inline-flex items-center text-accent hover:text-accent/80 transition-colors">
-                      <span className="text-sm font-medium">View Project</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-accent hover:text-accent/80 p-0 h-auto font-medium"
+                      onClick={() => {
+                        if (project.link) {
+                          window.open(project.link, '_blank');
+                        } else {
+                          window.location.href = `/work/${project.id}`;
+                        }
+                      }}
+                    >
+                      <span className="text-sm">View Project</span>
                       <ArrowRight className="ml-1 h-3 w-3" />
-                    </Link>
+                    </Button>
                   </div>
                 </div>
               ))}

@@ -2,6 +2,8 @@ import { EditableText } from "./EditableText";
 import { EditableImage } from "./EditableImage";
 import { Button } from "./ui/button";
 
+import img from "../wallpapers/WhatsApp Image 2025-12-30 at 1.14.30 PMWhatsApp.jpeg"
+
 interface HeroProps {
   data: {
     title: string;
@@ -53,10 +55,10 @@ export const Hero = ({ data, onChange, isEditable = false }: HeroProps) => {
         </p>
 
         <div className="flex items-center justify-center gap-3 mt-6">
-          <div className="h-12 w-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center">
-            <div className="h-8 w-8 rounded-full bg-background flex items-center justify-center">
-              <div className="h-2 w-2 rounded-full bg-accent"></div>
-            </div>
+          <div className="h-12 w-12 rounded-full bg-gradient-to-br from-accent to-primary hidden sm:flex items-center justify-center">
+
+            <img src={img} className="h-8 w-8 rounded-full bg-background flex items-center justify-center" />
+
           </div>
           <p className="text-base text-muted-foreground max-w-md">
             <EditableText
