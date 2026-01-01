@@ -73,6 +73,7 @@ export interface PortfolioData {
     title: string;
     description: string;
     image?: string;
+    cv?: string; // URL or identifier for CV file
     experiences: Experience[];
     studies: Study[];
   };

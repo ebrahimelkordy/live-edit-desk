@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import portfolioHandler from '../api/portfolio.js';
 import healthHandler from '../api/health.js';
+import uploadHandler from '../api/upload.js';
+import fileHandler from '../api/file.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -26,6 +28,8 @@ const wrapHandler = (handler) => async (req, res) => {
 // API Routes
 app.all('/api/portfolio', wrapHandler(portfolioHandler));
 app.all('/api/health', wrapHandler(healthHandler));
+app.all('/api/upload', wrapHandler(uploadHandler));
+app.all('/api/file', wrapHandler(fileHandler));
 
 // Default route
 app.get('/', (req, res) => {

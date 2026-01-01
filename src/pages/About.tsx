@@ -60,10 +60,7 @@ export const AboutPage = ({ isEditable = false }: AboutPageProps) => {
 
   return (
     <div className="min-h-screen">
-      {/* Introduction */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32">
-        <p className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Introduction</p>
-      </div>
+
       <About data={data.about} onChange={handleAboutChange} isEditable={isEditable} />
 
       {/* Work Experience */}

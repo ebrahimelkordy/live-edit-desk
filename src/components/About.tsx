@@ -1,11 +1,15 @@
 import { EditableText } from "./EditableText";
 import { EditableImage } from "./EditableImage";
+import { Button } from "./ui/button";
+import { Download } from "lucide-react";
+import { EditableFileUpload } from "./EditableFileUpload";
 
 interface AboutProps {
   data: {
     title: string;
     description: string;
     image?: string;
+    cv?: string;
   };
   onChange: (field: string, value: string) => void;
   isEditable?: boolean;
@@ -45,6 +49,44 @@ export const About = ({ data, onChange, isEditable = false }: AboutProps) => {
                   isEditable={isEditable}
                 />
               </p>
+              <div className="mt-6 flex justify-start">
+                {data.cv && (
+                  isEditable ? (
+                    <EditableText
+                      value={data.cv}
+                      onChange={(value) => onChange("cv", value)}
+                      isEditable={isEditable}
+                      placeholder="CV file URL"
+                      className="text-accent underline hover:text-accent/80"
+                    />
+                  ) : (
+                    <Button asChild variant="outline" className="gap-2">
+                      <a href={data.cv} download target="_blank" rel="noopener noreferrer">
+                        <Download className="h-4 w-4" />
+                        Download CV
+                      </a>
+                    </Button>
+                  )
+                )}
+                {!data.cv && isEditable && (
+                  <EditableText
+                    value=""
+                    onChange={(value) => onChange("cv", value)}
+                    isEditable={isEditable}
+                    placeholder="Add CV file URL"
+                    className="text-accent underline hover:text-accent/80"
+                  />
+                )}
+                {isEditable && (
+                  <div className="mt-3">
+                    <EditableFileUpload
+                      value={data.cv}
+                      onChange={(url) => onChange("cv", url)}
+                      isEditable={isEditable}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

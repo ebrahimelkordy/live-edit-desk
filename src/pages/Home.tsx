@@ -186,7 +186,7 @@ export const Home = ({ isEditable = false }: HomeProps) => {
               </Link>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {data.projects.slice(0, 4).map((project) => (
                 <div key={project.id} className="card-elevated bg-card overflow-hidden group hover-lift">
                   <img src={project.image} alt={project.title} className="w-full h-64 object-cover" />

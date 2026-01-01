@@ -15,6 +15,7 @@ export const defaultPortfolioData: PortfolioData = {
     title: "About Me",
     description: "I'm a passionate full-stack web developer with a strong focus on frontend technologies. I specialize in creating responsive, user-friendly interfaces using modern JavaScript frameworks and libraries. With expertise in both frontend and backend development, I build complete web applications that are both visually appealing and functionally robust.",
     image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23000000'/%3E%3C/svg%3E",  // Black SVG placeholder
+    cv: "",
     experiences: [],
     studies: [],
   },

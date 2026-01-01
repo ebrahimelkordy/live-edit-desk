@@ -97,29 +97,8 @@ export const ProjectDetail = ({ isEditable = false }: ProjectDetailProps) => {
 
   return (
     <div className="min-h-screen">
-      {/* Back Button */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-8">
-        <div className="flex items-center justify-between">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/work')}
-            className="mb-8"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
-          </Button>
-          {isEditable && (
-            <Button
-              variant="outline"
-              onClick={() => navigate(`/dashboard/work/${project.id}/edit`)}
-              className="mb-8"
-            >
-              <Edit className="mr-2 h-4 w-4" />
-              Edit Project
-            </Button>
-          )}
-        </div>
-      </div>
+
+
 
       {/* Project Header */}
       <section className="section-container">
